@@ -1,6 +1,4 @@
 --afghani premium gucci
-
-
 local KeyGuardLibrary = loadstring(game:HttpGet("https://cdn.keyguardian.org/library/v1.0.0.lua"))()
 local trueData = "a9725b34503b4b909697cb419fcbebd5"
 local falseData = "073334be55e34e7797712601d86e0cf5"
@@ -12,58 +10,37 @@ KeyGuardLibrary.Set({
   falseData = falseData,
 })
 
--- **Anti-BYPASS Schutz**
-if not KeyGuardLibrary then
-    game.Players.LocalPlayer:Kick("KeyGuardian wurde nicht geladen!")
-end
-
-local getkey = KeyGuardLibrary.getLink()
-setclipboard(getkey)
-
--- **Key-Prüfung**
+-- **Überprüft, ob der Key richtig ist (Key kommt aus dem Loader)**
 if not _G.YourKey or _G.YourKey == "" then
-    game.Players.LocalPlayer:Kick("Kein Key angegeben!")
+    game.Players.LocalPlayer:Kick("❌ Kein Key gefunden! Starte den Loader neu.")
 end
 
 local response = KeyGuardLibrary.validateDefaultKey(_G.YourKey)
-
--- **Anti-Manipulation für Key-Prüfung**
-if not response then
-    game.Players.LocalPlayer:Kick("Ungültiger Key erkannt!")
+if response then
+    print("✅ Key erfolgreich validiert! Skript startet...")
+else
+    game.Players.LocalPlayer:Kick("❌ Falscher Key! Bitte gib einen gültigen Key ein.")
 end
 
--- **Zusätzlicher Schutz gegen Exploiter**
+-- **ANTI-BYPASS SCHUTZ** 🛡
 task.spawn(function()
     while true do
         if getgenv().KeyMode or getgenv().AllowAnyKey or getgenv().UseKey then
-            game.Players.LocalPlayer:Kick("Bypass erkannt!")
-        end
-        if _G.waittoload or _G.DiscordWebhook then
-            game.Players.LocalPlayer:Kick("Verdächtige Variable erkannt!")
+            game.Players.LocalPlayer:Kick("🚨 Bypass erkannt!")
         end
         task.wait(2) -- Überprüfung alle 2 Sekunden
     end
 end)
 
--- **HTTP-Schutz (Blockiert externe Skript-Loader)**
-local oldHttpGet = game.HttpGet
-hookfunction(game.HttpGet, function(self, url, ...)
-    if string.find(url, "whimper.xyz") or string.find(url, "githubusercontent") then
-        warn("Verdächtige URL erkannt: " .. url)
-        game.Players.LocalPlayer:Kick("Bypass-Versuch erkannt!")
-    end
-    return oldHttpGet(self, url, ...)
-end)
+-- **Verhindert, dass jemand den Webhook manipuliert**
+if not _G.DiscordWebhook or _G.DiscordWebhook == "" then
+    game.Players.LocalPlayer:Kick("❌ Webhook fehlt! Starte den Loader neu.")
+end
 
--- **Schutz gegen Manipulation des KeyGuardian-Moduls**
-local oldLoadstring = loadstring
-hookfunction(loadstring, function(...)
-    warn("Externe loadstring()-Nutzung erkannt!")
-    return function() end
-end)
+print("✅ Webhook OK!")
 
--- **Dein Skript beginnt hier, wenn der Key validiert wurde**
-print("Key validiert! Skript startet...")
+-- **🚀 Haupt-Skript startet hier!**
+print("🎉 Skript läuft! Alles ist abgesichert.")
 
 if response == trueData then
       local repo = 'https://raw.githubusercontent.com/LionTheGreatRealFrFr/MobileLinoriaLib/main/'
