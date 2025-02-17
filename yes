@@ -1,4 +1,5 @@
 --afghani premium gucci
+
 local KeyGuardLibrary = loadstring(game:HttpGet("https://cdn.keyguardian.org/library/v1.0.0.lua"))()
 local trueData = "a9725b34503b4b909697cb419fcbebd5"
 local falseData = "073334be55e34e7797712601d86e0cf5"
@@ -10,7 +11,7 @@ KeyGuardLibrary.Set({
   falseData = falseData,
 })
 
--- **Überprüft, ob der Key richtig ist (Key kommt aus dem Loader)**
+-- Validierung des Keys (Key kommt aus dem lokalen Loader, nicht aus GitHub)
 if not _G.YourKey or _G.YourKey == "" then
     game.Players.LocalPlayer:Kick("❌ Kein Key gefunden! Starte den Loader neu.")
 end
@@ -22,7 +23,7 @@ else
     game.Players.LocalPlayer:Kick("❌ Falscher Key! Bitte gib einen gültigen Key ein.")
 end
 
--- **ANTI-BYPASS SCHUTZ** 🛡
+-- **ANTI-BYPASS-SCHUTZ** 🛡️
 task.spawn(function()
     while true do
         if getgenv().KeyMode or getgenv().AllowAnyKey or getgenv().UseKey then
@@ -32,15 +33,16 @@ task.spawn(function()
     end
 end)
 
--- **Verhindert, dass jemand den Webhook manipuliert**
+-- Webhook Check (nur aus dem Loader)
 if not _G.DiscordWebhook or _G.DiscordWebhook == "" then
     game.Players.LocalPlayer:Kick("❌ Webhook fehlt! Starte den Loader neu.")
 end
 
 print("✅ Webhook OK!")
 
--- **🚀 Haupt-Skript startet hier!**
+-- Haupt-Skript startet hier
 print("🎉 Skript läuft! Alles ist abgesichert.")
+
 
 if response == trueData then
       local repo = 'https://raw.githubusercontent.com/LionTheGreatRealFrFr/MobileLinoriaLib/main/'
